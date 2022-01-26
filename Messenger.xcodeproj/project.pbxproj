@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		92CFB8B927989FA700FCF1D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CFB8B827989FA700FCF1D0 /* AppDelegate.swift */; };
 		92CFB8BB27989FA700FCF1D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CFB8BA27989FA700FCF1D0 /* SceneDelegate.swift */; };
-		92CFB8BD27989FA700FCF1D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CFB8BC27989FA700FCF1D0 /* ViewController.swift */; };
+		92CFB8BD27989FA700FCF1D0 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CFB8BC27989FA700FCF1D0 /* ConversationsViewController.swift */; };
 		92CFB8C027989FA700FCF1D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92CFB8BE27989FA700FCF1D0 /* Main.storyboard */; };
 		92CFB8C227989FA700FCF1D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92CFB8C127989FA700FCF1D0 /* Assets.xcassets */; };
 		92CFB8C527989FA700FCF1D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92CFB8C327989FA700FCF1D0 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		92CFB8B527989FA700FCF1D0 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92CFB8B827989FA700FCF1D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92CFB8BA27989FA700FCF1D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		92CFB8BC27989FA700FCF1D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		92CFB8BC27989FA700FCF1D0 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
 		92CFB8BF27989FA700FCF1D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92CFB8C127989FA700FCF1D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92CFB8C427989FA700FCF1D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +37,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92A4F1C027A193690022E47D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				92CFB8BC27989FA700FCF1D0 /* ConversationsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92A4F1C127A193920022E47D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92A4F1C527A195CC0022E47D /* Storyboards */,
+				92CFB8C127989FA700FCF1D0 /* Assets.xcassets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		92A4F1C227A193A70022E47D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92A4F1C327A193B80022E47D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		92A4F1C427A193D40022E47D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				92CFB8B827989FA700FCF1D0 /* AppDelegate.swift */,
+				92CFB8BA27989FA700FCF1D0 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		92A4F1C527A195CC0022E47D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				92CFB8BE27989FA700FCF1D0 /* Main.storyboard */,
+				92CFB8C327989FA700FCF1D0 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		92CFB8AC27989FA700FCF1D0 = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +105,11 @@
 		92CFB8B727989FA700FCF1D0 /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
-				92CFB8B827989FA700FCF1D0 /* AppDelegate.swift */,
-				92CFB8BA27989FA700FCF1D0 /* SceneDelegate.swift */,
-				92CFB8BC27989FA700FCF1D0 /* ViewController.swift */,
-				92CFB8BE27989FA700FCF1D0 /* Main.storyboard */,
-				92CFB8C127989FA700FCF1D0 /* Assets.xcassets */,
-				92CFB8C327989FA700FCF1D0 /* LaunchScreen.storyboard */,
+				92A4F1C427A193D40022E47D /* Resources */,
+				92A4F1C327A193B80022E47D /* ViewModels */,
+				92A4F1C227A193A70022E47D /* Models */,
+				92A4F1C127A193920022E47D /* Views */,
+				92A4F1C027A193690022E47D /* Controllers */,
 				92CFB8C627989FA700FCF1D0 /* Info.plist */,
 			);
 			path = Messenger;
@@ -138,7 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92CFB8BD27989FA700FCF1D0 /* ViewController.swift in Sources */,
+				92CFB8BD27989FA700FCF1D0 /* ConversationsViewController.swift in Sources */,
 				92CFB8B927989FA700FCF1D0 /* AppDelegate.swift in Sources */,
 				92CFB8BB27989FA700FCF1D0 /* SceneDelegate.swift in Sources */,
 			);
