@@ -49,13 +49,13 @@ class LoginViewController: UIViewController {
     }()
     
     
-    // ...........поле пароля....................//
+    // .....<......поле пароля....................//
     
     private let passwordField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
-        field.returnKeyType = .continue
+        field.returnKeyType = .done
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
         field.layer.borderColor = UIColor.lightGray.cgColor
@@ -72,7 +72,24 @@ class LoginViewController: UIViewController {
         
     }()
     
-    // ...........поле пароля....................//
+    
+    private let loginButton: UIButton = {
+        
+        let button = UIButton()
+        button.setTitle("Log in", for: .normal)
+        button.backgroundColor = .link
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont (ofSize: 20, weight: .bold)
+        return button
+        
+    }()
+    
+    
+    
+    
+    // ...........поле пароля..........>..........//
     
     
     override func viewDidLoad() {
@@ -89,11 +106,25 @@ class LoginViewController: UIViewController {
             target: self,
             action: #selector(didTapRegister))
         
+        /// после нажатия на loginButton
+        loginButton.addTarget(self,
+                              action: #selector(loginButtonTapped),
+                              for: .touchUpInside)
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+        
+        
+        
+        
+        
    //Добавление подвидов
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
+        scrollView.addSubview(loginButton)
     
     }
     
@@ -114,8 +145,42 @@ class LoginViewController: UIViewController {
                                    width: scrollView.width-60,
                                   height: 52)
         
+        passwordField.frame = CGRect (x: 30,
+                                   y: emailField.bottom+10,
+                                   width: scrollView.width-60,
+                                   height: 52)
+        
+        loginButton.frame = CGRect (x: 30,
+                                    y: passwordField.bottom+10,
+                                    width: scrollView.width-60,
+                                    height: 52)
+        
         
     }
+    
+    
+    @objc private func loginButtonTapped() {
+        guard let email = emailField.text, let password = passwordField.text,
+              !email.isEmpty, !password.isEmpty, password.count >= 6 else {
+                  alertUserLoginError()
+                  return
+                  
+              }
+        
+    /// Firebase Log in
+    }
+    ///если пользователь не правильно вбил логин
+    func alertUserLoginError(){
+        let alert = UIAlertController(title: "Woops",
+                                      message: "Please enter all informayion to log in.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true)
+        
+    }
+    
     
     @objc private func didTapRegister () {
         let vc = RegisterViewController()
@@ -124,7 +189,23 @@ class LoginViewController: UIViewController {
         
     }
     
+}
 
-   
 
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField == emailField {
+            passwordField.becomeFirstResponder()
+        }
+        else if textField == passwordField{
+           loginButtonTapped()
+            
+        }
+        
+        
+        return true
+    }
+    
+    
 }
