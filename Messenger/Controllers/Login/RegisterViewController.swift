@@ -183,13 +183,17 @@ class RegisterViewController: UIViewController {
         imageView.addGestureRecognizer(gesture)
     
     }
-    
+    ///при клике на изображение головы на регистрации
     @objc private func didTapChangeProfilePic (){
         
-        print("Change pic called")
+        presentPhotoActionSheet()
         
         
     }
+    
+    
+    
+    ///.............sizes...............<...
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -235,6 +239,8 @@ class RegisterViewController: UIViewController {
         
         
     }
+    
+    ///.............sizes...............>...
     
     
     @objc private func registerButtonTapped() {
@@ -298,6 +304,58 @@ extension RegisterViewController: UITextFieldDelegate {
         
         
         return true
+    }
+    
+    
+}
+
+
+/// ...........register controller ..................
+
+
+extension RegisterViewController: UIImagePickerControllerDelegate {
+    
+    ///выбрать фото или сделать его
+    func presentPhotoActionSheet() {
+        
+        let actionSheet = UIAlertController (title: "Profile Picture",
+                                             message: "How would you like to select a picture?",
+                                             preferredStyle: .actionSheet)
+        
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel,
+                                            handler: nil))
+        
+        
+        actionSheet.addAction(UIAlertAction(title: "Take Photo",
+                                            style: .default,
+                                            handler: { _ in
+            
+        }))
+        
+        
+        actionSheet.addAction(UIAlertAction(title: "Chose Photo",
+                                            style: .default,
+                                            handler: { _ in
+            
+        }))
+        
+        present(actionSheet, animated: true)
+        
+    }
+    
+    
+    
+    ///подборщик изображений
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+    }
+    
+    
+    /// cancel foto
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
     }
     
     
