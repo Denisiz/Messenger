@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
@@ -18,12 +19,15 @@ class RegisterViewController: UIViewController {
     }()
     
  
-    
+    ///рамка при регистрации
     private let imageView: UIImageView = {
         let imageView = UIImageView ()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
         
     }()
@@ -194,7 +198,8 @@ class RegisterViewController: UIViewController {
     
     
     ///.............sizes...............<...
-    
+   
+    ///рамка для просмотра изображений
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
@@ -204,6 +209,8 @@ class RegisterViewController: UIViewController {
                                   width: size,
                                   height: size)
         
+        
+        imageView.layer.cornerRadius = imageView.width/2.0
         
         
         
@@ -267,6 +274,21 @@ class RegisterViewController: UIViewController {
               }
         
     /// Firebase Log in
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return 
+            }
+            guard let  result = authResult, error == nil else {
+                print ("Error cureating user")
+                return
+            }
+            
+            let user = result.user
+            print("Created User: \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            
+            
+        })
     }
     ///если пользователь не правильно вбил логин
     func alertUserLoginError(){
@@ -313,7 +335,7 @@ extension RegisterViewController: UITextFieldDelegate {
 /// ...........register controller ..................
 
 
-extension RegisterViewController: UIImagePickerControllerDelegate {
+extension RegisterViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     ///выбрать фото или сделать его
     func presentPhotoActionSheet() {
@@ -330,14 +352,16 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
         
         actionSheet.addAction(UIAlertAction(title: "Take Photo",
                                             style: .default,
-                                            handler: { _ in
+                                            handler: { [weak self]_ in
+            self?.presentCamera()
             
         }))
         
         
         actionSheet.addAction(UIAlertAction(title: "Chose Photo",
                                             style: .default,
-                                            handler: { _ in
+                                            handler: { [weak self]_ in
+            self?.presentPhotoPicker()
             
         }))
         
@@ -345,16 +369,43 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
         
     }
     
+    /// сделаем фото
+    func presentCamera() {
+        let vc = UIImagePickerController ()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+        
+        
+    }
+    /// выберем фото
+    func presentPhotoPicker () {
+        let vc = UIImagePickerController ()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+        
+        
+        
+    }
+    
     
     
     ///подборщик изображений
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{
+            return}
+        self.imageView.image = selectedImage
         
     }
     
     
     /// cancel foto
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
         
     }
     
